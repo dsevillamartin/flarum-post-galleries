@@ -6,7 +6,7 @@ const path = require('path');
 
 module.exports = merge(config(), {
   output: {
-    chunkFilename: 'chunk~[name].js',
+    chunkFilename: 'chunk~[name].js?ver=[contenthash]',
   },
   plugins: [
     new CleanWebpackPlugin({

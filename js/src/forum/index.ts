@@ -95,7 +95,7 @@ app.initializers.add('datitisev/flarum-post-galleries', () => {
   register(CommentPost.prototype, '.Post-body');
   register(DiscussionListItem.prototype, '.DiscussionListItem-info');
 
-  extend(ComposerPostPreview.prototype, 'oncreate', function () {
+  extend(ComposerPostPreview.prototype, 'oncreate', function (this: any) {
     override(this.attrs, 'surround', (orig, ...args) => {
       orig(...args);
 
@@ -105,11 +105,11 @@ app.initializers.add('datitisev/flarum-post-galleries', () => {
     });
   });
 
-  extend(ComposerPostPreview.prototype, 'onremove', function () {
+  extend(ComposerPostPreview.prototype, 'onremove', function (this: any) {
     this.galleries = destroyGalleries(this.galleries);
   });
 
-  extend(ReplyPlaceholder.prototype, 'anchorPreview', function () {
+  extend(ReplyPlaceholder.prototype, 'anchorPreview', function (this: any) {
     this.galleries = destroyGalleries(this.galleries);
 
     createGalleries(this.$('.Post-body'), this.galleries);
