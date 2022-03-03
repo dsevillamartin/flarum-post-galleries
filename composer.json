@@ -24,7 +24,10 @@
                 "name": "fas fa-images",
                 "color": "#0cce6b",
                 "backgroundColor": "#363537"
-            }
+            },
+            "optional-dependencies": [
+                "ianm/synopsis"
+            ]
         },
         "flarum-cli": {
             "modules": {
