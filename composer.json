@@ -19,11 +19,11 @@
     "extra": {
         "flarum-extension": {
             "title": "Post Galleries",
-            "category": "",
+            "category": "feature",
             "icon": {
-                "name": "",
-                "color": "",
-                "backgroundColor": ""
+                "name": "fas fa-images",
+                "color": "#0cce6b",
+                "backgroundColor": "#363537"
             }
         },
         "flarum-cli": {
@@ -33,7 +33,7 @@
                 "js": true,
                 "jsCommon": false,
                 "css": true,
-                "locale": true,
+                "locale": false,
                 "gitConf": true,
                 "githubActions": true,
                 "prettier": true,
