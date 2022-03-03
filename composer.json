@@ -46,6 +46,9 @@
                 "editorConfig": true,
                 "styleci": true
             }
+        },
+        "extiverse":  {
+            "discuss": "https://discuss.flarum.org/d/30295"
         }
     }
 }

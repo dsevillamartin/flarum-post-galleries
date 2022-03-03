@@ -31,4 +31,4 @@ php flarum cache:clear
 
 - [Packagist](https://packagist.org/packages/datitisev/flarum-post-galleries)
 - [GitHub](https://github.com/datitisev/flarum-post-galleries)
-- [Discuss](https://discuss.flarum.org/d/datitisev)
+- [Discuss](https://discuss.flarum.org/d/30295)
