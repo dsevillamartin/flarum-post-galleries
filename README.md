@@ -2,7 +2,12 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/datitisev/flarum-post-galleries.svg)](https://packagist.org/packages/datitisev/flarum-post-galleries) [![Total Downloads](https://img.shields.io/packagist/dt/datitisev/flarum-post-galleries.svg)](https://packagist.org/packages/datitisev/flarum-post-galleries)
 
-A [Flarum](http://flarum.org) extension. Add image galleries to your Flarum posts
+A [Flarum](http://flarum.org) extension. Add image galleries to your Flarum posts.
+
+Compatible with `ianm/synopsis`.
+
+![image](https://user-images.githubusercontent.com/6401250/156472658-1a268223-f037-479f-ba73-384bc582904a.png)
+
 
 ## Installation
 
