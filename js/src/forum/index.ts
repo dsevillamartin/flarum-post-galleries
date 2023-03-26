@@ -29,7 +29,7 @@ const swiperOptions = {
 };
 
 const createGalleries = async ($container: JQuery<HTMLElement>, galleries: Swiper[]) => {
-  const $elements = $container.find('img + br + img:last-of-type, a:has(img) + br + a:has(img):last-of-type');
+  const $elements = $container.find('img:not(.emoji) + br + img:last-of-type, a:has(img:not(.emoji)) + br + a:has(img:not(.emoji)):last-of-type');
 
   if (!$elements.length) return;
 
@@ -45,7 +45,7 @@ const createGalleries = async ($container: JQuery<HTMLElement>, galleries: Swipe
 
     this.setAttribute('data-flarum-post-gallery', '');
 
-    const images = $(this).siblings('img, a:has(img)').add(this);
+    const images = $(this).siblings('img:not(.emoji), a:has(img:not(.emoji))').add(this);
 
     $(images).siblings('br').remove();
 
@@ -65,6 +65,7 @@ const createGalleries = async ($container: JQuery<HTMLElement>, galleries: Swipe
     galleries.push(new Swiper(swiperEl, opts));
   });
 };
+
 
 const destroyGalleries = (galleries: Swiper[]) => {
   galleries?.forEach((gallery) => gallery.destroy());
