@@ -27,7 +27,7 @@ php flarum cache:clear
 
 ## Links
 
-[![GitHub](https://img.shields.io/badge/donate-datitisev-ea4aaa?style=for-the-badge&logo=github)](https://datitisev.me/donate/github)
+[![GitHub](https://img.shields.io/badge/donate-dsevillamartin-ea4aaa?style=for-the-badge&logo=github)](https://dsevilla.dev/donate/github)
 
 - [Packagist](https://packagist.org/packages/datitisev/flarum-post-galleries)
 - [GitHub](https://github.com/datitisev/flarum-post-galleries)

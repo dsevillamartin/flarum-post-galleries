@@ -12,8 +12,14 @@
     "authors": [
         {
             "name": "David Sevilla Martin",
-            "email": "me@datitisev.me",
+            "email": "me@dsevilla.dev",
             "role": "Developer"
+        }
+    ],
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/dsevillamartin"
         }
     ],
     "extra": {
