@@ -8,6 +8,14 @@ module.exports = merge(config(), {
   output: {
     chunkFilename: 'chunk~[name].js?ver=[contenthash]',
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        defaultVendors: false,
+        default: false,
+      },
+    }
+  },
   plugins: [
     new CleanWebpackPlugin({
       dry: false,

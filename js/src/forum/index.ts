@@ -2,20 +2,20 @@ import app from 'flarum/forum/app';
 import { extend, override } from 'flarum/common/extend';
 import CommentPost from 'flarum/forum/components/CommentPost';
 
-import type Swiper from 'swiper';
-// import Swiper, { Navigation, Pagination } from 'swiper';
+import type SwiperType from 'swiper';
+import {SwiperModule, SwiperOptions} from 'swiper/types';
+
 import DiscussionListItem from 'flarum/forum/components/DiscussionListItem';
 import ComposerPostPreview from 'flarum/forum/components/ComposerPostPreview';
-
-import getSwiper from './Swiper';
 import ReplyPlaceholder from 'flarum/forum/components/ReplyPlaceholder';
 
-document.head.innerHTML += '<link\n' + '  rel="stylesheet"\n' + '  href="https://unpkg.com/swiper@8/swiper-bundle.min.css"\n' + '/>';
+import getSwiper from './Swiper';
 
-const swiperOptions = {
+const swiperOptions: SwiperOptions = {
   centeredSlides: true,
   centeredSlidesBounds: true,
   spaceBetween: 30,
+  zoom: true,
 
   pagination: {
     el: '.swiper-pagination',
@@ -27,17 +27,29 @@ const swiperOptions = {
     prevEl: '.swiper-button-prev',
   },
 };
+let loadedSwiperCSS = false;
 
-const createGalleries = async ($container: JQuery<HTMLElement>, galleries: Swiper[]) => {
+const obtainSwiper = () => {
+  if (!loadedSwiperCSS) {
+    document.head.innerHTML += '<link\n' + '  rel="stylesheet"\n' + '  href="https://unpkg.com/swiper@10/swiper-bundle.min.css"\n' + '/>';
+    loadedSwiperCSS = true;
+  }
+
+  return getSwiper();
+}
+
+const createGalleries = async ($container: JQuery<HTMLElement>, galleries: SwiperType[]) => {
   const $elements = $container.find('img:not(.emoji) + br + img:last-of-type, a:has(img:not(.emoji)) + br + a:has(img:not(.emoji)):last-of-type');
 
   if (!$elements.length) return;
 
-  const { Swiper, Navigation, Pagination }: any = await getSwiper();
+  const useZoom = app.forum.attribute('useSwiperZoom');
+
+  const { Swiper, Navigation, Pagination, Zoom } = await obtainSwiper();
 
   const opts = {
+    modules: [Navigation, Pagination, useZoom && Zoom].filter(Boolean) as SwiperModule[],
     ...swiperOptions,
-    modules: [Navigation, Pagination],
   };
 
   $elements.each(function (this: HTMLElement) {
@@ -51,7 +63,11 @@ const createGalleries = async ($container: JQuery<HTMLElement>, galleries: Swipe
 
     images.wrapAll($('<div/>').addClass('swiper-wrapper')).wrap($('<div/>').addClass('swiper-slide'));
 
-    const swiperWrapper = this.parentElement?.parentElement!;
+    if (useZoom) {
+      images.wrap($('<div/>').addClass('swiper-zoom-container'));
+    }
+
+    const swiperWrapper = $(this).closest('.swiper-wrapper')[0]!;
 
     $(swiperWrapper).wrap($('<div/>').addClass('swiper'));
 
@@ -66,8 +82,7 @@ const createGalleries = async ($container: JQuery<HTMLElement>, galleries: Swipe
   });
 };
 
-
-const destroyGalleries = (galleries: Swiper[]) => {
+const destroyGalleries = (galleries: SwiperType[]) => {
   galleries?.forEach((gallery) => gallery.destroy());
   return [];
 };
