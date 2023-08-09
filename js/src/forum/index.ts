@@ -3,7 +3,7 @@ import { extend, override } from 'flarum/common/extend';
 import CommentPost from 'flarum/forum/components/CommentPost';
 
 import type SwiperType from 'swiper';
-import {SwiperModule, SwiperOptions} from 'swiper/types';
+import { SwiperModule, SwiperOptions } from 'swiper/types';
 
 import DiscussionListItem from 'flarum/forum/components/DiscussionListItem';
 import ComposerPostPreview from 'flarum/forum/components/ComposerPostPreview';
@@ -29,14 +29,20 @@ const swiperOptions: SwiperOptions = {
 };
 let loadedSwiperCSS = false;
 
-const obtainSwiper = () => {
+const obtainSwiper = async () => {
   if (!loadedSwiperCSS) {
     document.head.innerHTML += '<link\n' + '  rel="stylesheet"\n' + '  href="https://unpkg.com/swiper@10/swiper-bundle.min.css"\n' + '/>';
     loadedSwiperCSS = true;
   }
 
-  return getSwiper();
-}
+  try {
+    return await getSwiper();
+  } catch (err) {
+    console.error('Failed to load Swiper.', err);
+  }
+
+  return null;
+};
 
 const createGalleries = async ($container: JQuery<HTMLElement>, galleries: SwiperType[]) => {
   const $elements = $container.find('img:not(.emoji) + br + img:last-of-type, a:has(img:not(.emoji)) + br + a:has(img:not(.emoji)):last-of-type');
@@ -45,7 +51,9 @@ const createGalleries = async ($container: JQuery<HTMLElement>, galleries: Swipe
 
   const useZoom = app.forum.attribute('useSwiperZoom');
 
-  const { Swiper, Navigation, Pagination, Zoom } = await obtainSwiper();
+  const { Swiper, Navigation, Pagination, Zoom } = (await obtainSwiper()) || {};
+
+  if (!Swiper) return;
 
   const opts = {
     modules: [Navigation, Pagination, useZoom && Zoom].filter(Boolean) as SwiperModule[],
