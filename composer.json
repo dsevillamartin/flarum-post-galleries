@@ -7,7 +7,7 @@
     "type": "flarum-extension",
     "license": "MIT",
     "require": {
-        "flarum/core": "^1.2.0"
+        "flarum/core": "^2.0.0"
     },
     "authors": [
         {
@@ -53,8 +53,10 @@
                 "styleci": true
             }
         },
-        "extiverse":  {
+        "extiverse": {
             "discuss": "https://discuss.flarum.org/d/30295"
         }
-    }
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }

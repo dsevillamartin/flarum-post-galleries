@@ -7,9 +7,6 @@ import { SwiperModule, SwiperOptions } from 'swiper/types';
 
 import DiscussionListItem from 'flarum/forum/components/DiscussionListItem';
 import ComposerPostPreview from 'flarum/forum/components/ComposerPostPreview';
-import ReplyPlaceholder from 'flarum/forum/components/ReplyPlaceholder';
-
-import getSwiper from './Swiper';
 
 const swiperOptions: SwiperOptions = {
   centeredSlides: true,
@@ -27,16 +24,10 @@ const swiperOptions: SwiperOptions = {
     prevEl: '.swiper-button-prev',
   },
 };
-let loadedSwiperCSS = false;
 
 const obtainSwiper = async () => {
-  if (!loadedSwiperCSS) {
-    document.head.innerHTML += '<link\n' + '  rel="stylesheet"\n' + '  href="https://unpkg.com/swiper@10/swiper-bundle.min.css"\n' + '/>';
-    loadedSwiperCSS = true;
-  }
-
   try {
-    return await getSwiper();
+    return await import('./external/Swiper');
   } catch (err) {
     console.error('Failed to load Swiper.', err);
   }
@@ -133,12 +124,12 @@ app.initializers.add('datitisev/flarum-post-galleries', () => {
     this.galleries = destroyGalleries(this.galleries);
   });
 
-  extend(ReplyPlaceholder.prototype, 'anchorPreview', function (this: any) {
+  extend('flarum/forum/components/ReplyPlaceholder', 'anchorPreview', function (this: any) {
     this.galleries = destroyGalleries(this.galleries);
 
     createGalleries(this.$('.Post-body'), this.galleries);
   });
 
-  registerDestroy(ComposerPostPreview.prototype);
-  registerDestroy(ReplyPlaceholder.prototype);
+  registerDestroy('flarum/forum/components/ComposerPostPreview');
+  registerDestroy('flarum/forum/components/ReplyPlaceholder');
 });
